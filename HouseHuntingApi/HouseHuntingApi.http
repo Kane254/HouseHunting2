@@ -1,0 +1,6 @@
+@HouseHuntingApi_HostAddress = http://localhost:5055
+
+GET {{HouseHuntingApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
