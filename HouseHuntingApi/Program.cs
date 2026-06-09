@@ -22,6 +22,23 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+// --- INSERT THIS BLOCK TO RUN THE SEEDER ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        AppDbContext.SeedData(context); // This runs our script
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
+// --------------------------------------------
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -36,4 +53,4 @@ app.UseCors("AllowReactApp");
 
 app.MapControllers();
 
-app.Run();
+//app.Run();
