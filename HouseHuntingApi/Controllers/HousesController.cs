@@ -36,7 +36,7 @@ namespace HouseHuntingApi.Controllers
             // Filter by Location
             if (!string.IsNullOrEmpty(location))
             {
-                query = query.Where(u => u.Property != null && u.Property.Location.Contains(location));
+                query = query.Where(u => u.Property != null && u.Property.Location != null && u.Property.Location.Contains(location));
             }
 
             // Filter by House Type

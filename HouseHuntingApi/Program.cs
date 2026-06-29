@@ -49,8 +49,12 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("AllowReactApp");
+// Right after builder.Build();
+app.UseCors(policy => policy
+    .AllowAnyOrigin()  // Temporarily wide open to rule out origin issues
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.MapControllers();
 
-//app.Run();
+app.Run();
