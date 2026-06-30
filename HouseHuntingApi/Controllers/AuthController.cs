@@ -5,8 +5,9 @@ using HouseHuntingApi.Models;
 
 namespace HouseHuntingApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    
     public class AuthController : ControllerBase
     {
         private readonly AppDbContext _context;

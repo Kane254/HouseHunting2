@@ -22,6 +22,20 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+app.UseRouting();
+
+// Right after builder.Build();
+app.UseCors(policy => policy  // Temporarily wide open to rule out origin issues
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.MapControllers();
+
+app.UseAuthorization();
+
+app.Run();
+
 // --- INSERT THIS BLOCK TO RUN THE SEEDER ---
 using (var scope = app.Services.CreateScope())
 {
@@ -45,16 +59,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
-// Right after builder.Build();
-app.UseCors(policy => policy
-    .AllowAnyOrigin()  // Temporarily wide open to rule out origin issues
-    .AllowAnyMethod()
-    .AllowAnyHeader());
 
-app.MapControllers();
 
-app.Run();
+
+
+
